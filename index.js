@@ -10,6 +10,7 @@ var sendGetCount = 0, sendPostCount = 0, sendPutCount = 0
 
   server.listen(PORT, HOST, function () {
   console.log('Server %s listening at %s', server.name, server.url)
+ 
   console.log('Endpoints:')
   console.log('http://127.0.0.1:3000/products method: GET')
   console.log('http://127.0.0.1:3000/products/edit method: POST')
