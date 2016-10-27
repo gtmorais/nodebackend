@@ -3,6 +3,7 @@ var SERVER_NAME = 'myApi'
 var PORT = 3000;
 var HOST = '127.0.0.1';
 
+
 var restify = require('restify')
 var save = require('save')('products')
 var server = restify.createServer({ name: SERVER_NAME})
