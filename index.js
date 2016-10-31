@@ -24,14 +24,9 @@ var MongoClient = require('mongodb').MongoClient
     MongoClient.connect(MONGOURL, function(err, db) {
       assert.equal(null, err);
       console.log("Connected successfully to MONGODB server");
-      
-      // Authenticate
-      /*db.authenticate(MONGOUSER, '4mC49k6DSPJhF0zCZO6MkPwyrhIa2FEivGWnjMYHchD3jcvz5bpV2Lih3Uc0wN1ktE6slDEo7ARJPjuaJ5ttuQ', function(err, result) {
-      assert.equal(true, result);
-      db.close();
-      });*/
     });
   }
+  
 
   server.listen(PORT, HOST, function () {
   console.log('Server %s listening at %s', server.name, server.url)
