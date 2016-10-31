@@ -63,13 +63,24 @@ server.post('/patients', function (req, res, next) {
     // If there are any errors, pass them to next in the correct format
     return next(new restify.InvalidArgumentError('name must be supplied'))
   }
-  if (req.params.age === undefined ) {
+  if (req.params.doctorID === undefined ) {
     // If there are any errors, pass them to next in the correct format
-    return next(new restify.InvalidArgumentError('age must be supplied'))
+    return next(new restify.InvalidArgumentError('doctorID must be supplied'))
+  }
+  if (req.params.nurseID === undefined ) {
+    // If there are any errors, pass them to next in the correct format
+    return next(new restify.InvalidArgumentError('nurseID must be supplied'))
+  }
+  if (req.params.primaryDignosis === undefined ) {
+    // If there are any errors, pass them to next in the correct format
+    return next(new restify.InvalidArgumentError('primaryDignosis must be supplied'))
   }
   var newUser = {
+		_id: req.params.id,
 		name: req.params.name, 
-		age: req.params.age
+    doctorID: req.params.doctorID,
+    nurseID: raq.params.nurseID,
+    primaryDignosis: raq.params.primaryDignosis
 	}
 
   // Create the user using the persistence engine
@@ -91,15 +102,25 @@ server.put('/patients/:id', function (req, res, next) {
     // If there are any errors, pass them to next in the correct format
     return next(new restify.InvalidArgumentError('name must be supplied'))
   }
-  if (req.params.age === undefined ) {
+  if (req.params.doctorID === undefined ) {
     // If there are any errors, pass them to next in the correct format
-    return next(new restify.InvalidArgumentError('age must be supplied'))
+    return next(new restify.InvalidArgumentError('doctorID must be supplied'))
+  }
+  if (req.params.nurseID === undefined ) {
+    // If there are any errors, pass them to next in the correct format
+    return next(new restify.InvalidArgumentError('nurseID must be supplied'))
+  }
+  if (req.params.primaryDignosis === undefined ) {
+    // If there are any errors, pass them to next in the correct format
+    return next(new restify.InvalidArgumentError('primaryDignosis must be supplied'))
   }
   
   var newUser = {
 		_id: req.params.id,
 		name: req.params.name, 
-		age: req.params.age
+    doctorID: req.params.doctorID,
+    nurseID: raq.params.nurseID,
+    primaryDignosis: raq.params.primaryDignosis
 	}
   
   // Update the user with the persistence engine
