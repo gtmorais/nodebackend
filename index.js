@@ -1,15 +1,37 @@
 var SERVER_NAME = 'eTouchCare'
 var PORT = 3000;
 var HOST = '127.0.0.1';
-
-
-var restify = require('restify')
+var MONGOURL = "";
+var MONGOPORT = 10250;
+var MONGOUSER = "mapd";
+ 
+var MongoClient = require('mongodb').MongoClient
+  ,assert = require('assert')
+  ,restify = require('restify')
 
   // Get a persistence engine for the patients
   , patientsSave = require('save')('patients')
 
   // Create the restify server
   , server = restify.createServer({ name: SERVER_NAME})
+
+  // Connection URL
+  //var url = 'mongodb://localhost:27017/myproject';
+
+  // Use connect method to connect to the server
+  if (MONGOURL != '')
+  {
+    MongoClient.connect(MONGOURL, function(err, db) {
+      assert.equal(null, err);
+      console.log("Connected successfully to MONGODB server");
+      
+      // Authenticate
+      /*db.authenticate(MONGOUSER, '4mC49k6DSPJhF0zCZO6MkPwyrhIa2FEivGWnjMYHchD3jcvz5bpV2Lih3Uc0wN1ktE6slDEo7ARJPjuaJ5ttuQ', function(err, result) {
+      assert.equal(true, result);
+      db.close();
+      });*/
+    });
+  }
 
   server.listen(PORT, HOST, function () {
   console.log('Server %s listening at %s', server.name, server.url)
@@ -36,26 +58,26 @@ server.get('/patients', function (req, res, next) {
   })
 })
 
-// Get a single user by their user id
+// Get a single patient by their patient id
 server.get('/patients/:id', function (req, res, next) {
 
-  // Find a single user by their id within save
-  patientsSave.findOne({ _id: req.params.id }, function (error, user) {
+  // Find a single patient by their id within save
+  patientsSave.findOne({ _id: req.params.id }, function (error, patient) {
 
     // If there are any errors, pass them to next in the correct format
     if (error) return next(new restify.InvalidArgumentError(JSON.stringify(error.errors)))
 
-    if (user) {
-      // Send the user if no issues
-      res.send(user)
+    if (patient) {
+      // Send the patient if no issues
+      res.send(patient)
     } else {
-      // Send 404 header if the user doesn't exist
+      // Send 404 header if the patient doesn't exist
       res.send(404)
     }
   })
 })
 
-// Create a new user
+// Create a new patient
 server.post('/patients', function (req, res, next) {
 
   // Make sure name is defined
@@ -75,7 +97,7 @@ server.post('/patients', function (req, res, next) {
     // If there are any errors, pass them to next in the correct format
     return next(new restify.InvalidArgumentError('primaryDignosis must be supplied'))
   }
-  var newUser = {
+  var newpatient = {
 		_id: req.params.id,
 		name: req.params.name, 
     doctorID: req.params.doctorID,
@@ -83,18 +105,18 @@ server.post('/patients', function (req, res, next) {
     primaryDignosis: raq.params.primaryDignosis
 	}
 
-  // Create the user using the persistence engine
-  patientsSave.create( newUser, function (error, user) {
+  // Create the patient using the persistence engine
+  patientsSave.create( newpatient, function (error, patient) {
 
     // If there are any errors, pass them to next in the correct format
     if (error) return next(new restify.InvalidArgumentError(JSON.stringify(error.errors)))
 
-    // Send the user if no issues
-    res.send(201, user)
+    // Send the patient if no issues
+    res.send(201, patient)
   })
 })
 
-// Update a user by their id
+// Update a patient by their id
 server.put('/patients/:id', function (req, res, next) {
 
   // Make sure name is defined
@@ -115,7 +137,7 @@ server.put('/patients/:id', function (req, res, next) {
     return next(new restify.InvalidArgumentError('primaryDignosis must be supplied'))
   }
   
-  var newUser = {
+  var newpatient = {
 		_id: req.params.id,
 		name: req.params.name, 
     doctorID: req.params.doctorID,
@@ -123,8 +145,8 @@ server.put('/patients/:id', function (req, res, next) {
     primaryDignosis: raq.params.primaryDignosis
 	}
   
-  // Update the user with the persistence engine
-  patientsSave.update(newUser, function (error, user) {
+  // Update the patient with the persistence engine
+  patientsSave.update(newpatient, function (error, patient) {
 
     // If there are any errors, pass them to next in the correct format
     if (error) return next(new restify.InvalidArgumentError(JSON.stringify(error.errors)))
@@ -134,11 +156,11 @@ server.put('/patients/:id', function (req, res, next) {
   })
 })
 
-// Delete user with the given id
+// Delete patient with the given id
 server.del('/patients/:id', function (req, res, next) {
 
-  // Delete the user with the persistence engine
-  patientsSave.delete(req.params.id, function (error, user) {
+  // Delete the patient with the persistence engine
+  patientsSave.delete(req.params.id, function (error, patient) {
 
     // If there are any errors, pass them to next in the correct format
     if (error) return next(new restify.InvalidArgumentError(JSON.stringify(error.errors)))
