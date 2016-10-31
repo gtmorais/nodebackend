@@ -1,12 +1,12 @@
 {
-    "name": "UserApi",
+    "name": "eTouchCare",
     "version": "1.0.0",
     "description": "REST API - Users",
     "dependencies": {
         "restify": "latest",
         "save": "latest"
     },
-    "author": "zvbox",
+    "author": "TeamOne",
 	"private": true,
 	"main": "index.js"
 }
