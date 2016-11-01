@@ -1,19 +1,19 @@
 var SERVER_NAME = 'eTouchCare'
 var PORT = 3000;
 var HOST = '127.0.0.1';
-var MONGOURL = "mongodb://mapd:4mC49k6DSPJhF0zCZO6MkPwyrhIa2FEivGWnjMYHchD3jcvz5bpV2Lih3Uc0wN1ktE6slDEo7ARJPjuaJ5ttuQ==@mapd.documents.azure.com:10250/?ssl=true";
-var MONGOPORT = 10250;
-var MONGOUSER = "mapd";
+
+var MONGOURL = "";
+
+
+var MONGOURL = "";
+
  
 var MongoClient = require('mongodb').MongoClient
   ,assert = require('assert')
   ,restify = require('restify')
-
-  // Get a persistence engine for the patients
   , patientsSave = require('save')('patients')
-
-  // Create the restify server
   , server = restify.createServer({ name: SERVER_NAME})
+
 
   // Connection URL
   //var url = 'mongodb://localhost:27017/myproject';
@@ -42,11 +42,24 @@ var MongoClient = require('mongodb').MongoClient
   }
   
 
+var dbConn = null;  
+
+
   server.listen(PORT, HOST, function () {
-  console.log('Server %s listening at %s', server.name, server.url)
-  console.log('Resources:')
-  console.log(' /patients')
-  console.log(' /patients/:id')  
+    console.log('Server %s listening at %s', server.name, server.url)
+    console.log('Resources:')
+    console.log(' /patients')
+    console.log(' /patients/:id')  
+
+    // Use connect method to connect to the server
+    if (MONGOURL != '')
+    {
+      MongoClient.connect("mongodb://mapd:4mC49k6DSPJhF0zCZO6MkPwyrhIa2FEivGWnjMYHchD3jcvz5bpV2Lih3Uc0wN1ktE6slDEo7ARJPjuaJ5ttuQ==@mapd.documents.azure.com:10250/?ssl=true", function(err, db) {
+        assert.equal(null, err);
+        dbConn = db;
+        console.log("Connected successfully to MONGODB server");
+      });
+    }
 })
 
 server
