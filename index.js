@@ -5,8 +5,6 @@ var HOST = '127.0.0.1';
 var MONGOURL = "";
 
 
-var MONGOURL = "";
-
  
 var MongoClient = require('mongodb').MongoClient
   ,assert = require('assert')
@@ -15,31 +13,10 @@ var MongoClient = require('mongodb').MongoClient
   , server = restify.createServer({ name: SERVER_NAME})
 
 
-  // Connection URL
-  //var url = 'mongodb://localhost:27017/myproject';
-  // MongoClient.connect(MONGOURL, function (err, db) {
-  //   if (err) {
-  //     console.log('Unable to connect to the mongoDB server. Error:', err);
-  //   } else {
-  //     //HURRAY!! We are connected. :)
-  //     console.log('Connection established to', MONGOURL);
-
-  //     // do some work here with the database.
-
-  //     //Close connection
-  //     db.close();
-  //   }
-  // });
 
 
-  // Use connect method to connect to the server
-  if (MONGOURL != '')
-  {
-    MongoClient.connect(MONGOURL, function(err, db) {
-      assert.equal(null, err);
-      console.log("Connected successfully to MONGODB server");
-    });
-  }
+
+
   
 
 var dbConn = null;  
@@ -54,7 +31,7 @@ var dbConn = null;
     // Use connect method to connect to the server
     if (MONGOURL != '')
     {
-      MongoClient.connect("mongodb://mapd:4mC49k6DSPJhF0zCZO6MkPwyrhIa2FEivGWnjMYHchD3jcvz5bpV2Lih3Uc0wN1ktE6slDEo7ARJPjuaJ5ttuQ==@mapd.documents.azure.com:10250/?ssl=true", function(err, db) {
+      MongoClient.connect("", function(err, db) {
         assert.equal(null, err);
         dbConn = db;
         console.log("Connected successfully to MONGODB server");
