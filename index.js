@@ -1,7 +1,7 @@
 var SERVER_NAME = 'eTouchCare'
 var PORT = 3000;
 var HOST = '127.0.0.1';
-var MONGOURL = "";
+var MONGOURL = "mongodb://mapd:4mC49k6DSPJhF0zCZO6MkPwyrhIa2FEivGWnjMYHchD3jcvz5bpV2Lih3Uc0wN1ktE6slDEo7ARJPjuaJ5ttuQ==@mapd.documents.azure.com:10250/?ssl=true";
 var MONGOPORT = 10250;
 var MONGOUSER = "mapd";
  
@@ -17,6 +17,20 @@ var MongoClient = require('mongodb').MongoClient
 
   // Connection URL
   //var url = 'mongodb://localhost:27017/myproject';
+  // MongoClient.connect(MONGOURL, function (err, db) {
+  //   if (err) {
+  //     console.log('Unable to connect to the mongoDB server. Error:', err);
+  //   } else {
+  //     //HURRAY!! We are connected. :)
+  //     console.log('Connection established to', MONGOURL);
+
+  //     // do some work here with the database.
+
+  //     //Close connection
+  //     db.close();
+  //   }
+  // });
+
 
   // Use connect method to connect to the server
   if (MONGOURL != '')

@@ -1,12 +1,13 @@
 {
-    "name": "eTouchCare",
-    "version": "1.0.0",
-    "description": "REST API - Users",
-    "dependencies": {
-        "restify": "latest",
-        "save": "latest"
-    },
-    "author": "TeamOne",
-	"private": true,
-	"main": "index.js"
+  "name": "eTouchCare",
+  "version": "1.0.0",
+  "description": "REST API - Users",
+  "dependencies": {
+    "mongodb": "^2.2.11",
+    "restify": "latest",
+    "save": "latest"
+  },
+  "author": "TeamOne",
+  "private": true,
+  "main": "index.js"
 }
